@@ -1,14 +1,15 @@
 #pragma once
 
+#include "KeyValueElement.h"
+
 template<typename keyt, typename valuet>
 class KeyValueContainer
 {
 private:
-    void** keys;
-    void** values;
+    KeyValueElement<keyt, valuet>* list;
 public:
     KeyValueContainer();
     ~KeyValueContainer();
 
-    T& operator[](const T&);
+    KeyValueElement<keyt, valuet>& operator[](const keyt&);
 };

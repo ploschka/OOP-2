@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/ploshka/repos/OOP-2/modules/KeyValueContainer/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DKeyValueContainer_EXPORTS -I/home/ploshka/repos/OOP-2/modules/KeyValueContainer/include  -g -fPIC   -o CMakeFiles/KeyValueContainer.dir/src/KeyValueContainer.o -c /home/ploshka/repos/OOP-2/modules/KeyValueContainer/src/KeyValueContainer.cpp",
+  "file": "/home/ploshka/repos/OOP-2/modules/KeyValueContainer/src/KeyValueContainer.cpp"
+},
+{
+  "directory": "/home/ploshka/repos/OOP-2/modules/KeyValueContainer/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DKeyValueContainer_EXPORTS -I/home/ploshka/repos/OOP-2/modules/KeyValueContainer/include  -g -fPIC   -o CMakeFiles/KeyValueContainer.dir/src/KeyValueElement.o -c /home/ploshka/repos/OOP-2/modules/KeyValueContainer/src/KeyValueElement.cpp",
+  "file": "/home/ploshka/repos/OOP-2/modules/KeyValueContainer/src/KeyValueElement.cpp"
+}
+]
