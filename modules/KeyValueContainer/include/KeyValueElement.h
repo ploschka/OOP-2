@@ -10,7 +10,8 @@ private:
     const keyt key;
     const valuet value;
 
-    KeyValueElement();
+    KeyValueElement(const keyt key, const valuet value);
+    KeyValueElement(const KeyValueElement<keyt, valuet>& other);
     
     void operator=(const valuet newData);
 

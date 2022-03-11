@@ -1,7 +1,13 @@
 #include "KeyValueElement.h"
 
 template<typename keyt, typename valuet>
-KeyValueElement<keyt, valuet>::KeyValueElement()
+KeyValueElement<keyt, valuet>::KeyValueElement(const keyt key, const valuet value)
+{
+
+}
+
+template<typename keyt, typename valuet>
+KeyValueElement<keyt, valuet>::KeyValueElement(const KeyValueElement<keyt, valuet>& other)
 {
 
 }
