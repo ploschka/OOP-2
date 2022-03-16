@@ -1,3 +1,0 @@
-/home/ploshka/repos/OOP-2/modules/KeyValueContainer/build/CMakeFiles/edit_cache.dir
-/home/ploshka/repos/OOP-2/modules/KeyValueContainer/build/CMakeFiles/rebuild_cache.dir
-/home/ploshka/repos/OOP-2/modules/KeyValueContainer/build/CMakeFiles/KeyValueContainer.dir

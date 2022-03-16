@@ -1,5 +1,4 @@
 set(KEYVALUECONTAINER_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-include_directories(${KEYVALUECONTAINER_INCLUDE_DIR})
-
-add_library(KeyValueContainer SHARED src/KeyValueContainer.cpp src/KeyValueElement.cpp)
+add_library(KeyValueContainer SHARED src/KVC.cpp src/KVE.cpp)
+target_include_directories(KeyValueContainer PUBLIC ${KEYVALUECONTAINER_INCLUDE_DIR})
