@@ -11,3 +11,14 @@ private:
 
     friend class Stack<T>;
 };
+
+
+
+
+
+
+template<typename T>
+StackElement<T>::StackElement(const T& data, const StackElement* const ptr): data(data), next(ptr)
+{
+
+}
