@@ -6,10 +6,15 @@ class StackElement
 {
 private:
     T data;
-    StackElement<T>* next;
+    const StackElement<T>* next;
+    StackElement() = default;
     StackElement(const T& data, const StackElement* const ptr);
+    ~StackElement() = default;
 
     friend class Stack<T>;
+
+    template<typename TT>
+    friend std::ostream& operator<<(std::ostream& os, const Stack<TT>& stack);
 };
 
 
@@ -18,7 +23,4 @@ private:
 
 
 template<typename T>
-StackElement<T>::StackElement(const T& data, const StackElement* const ptr): data(data), next(ptr)
-{
-
-}
+StackElement<T>::StackElement(const T& data, const StackElement* ptr): data(data), next(ptr){}
