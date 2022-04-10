@@ -1,19 +1,21 @@
 #pragma once
 
-#include "KVE.h"
-#include <malloc.h>
+#include <vector>
+#include <utility>
 
 template<typename keyt, typename valuet>
 class KVC
 {
 private:
-    void** list;
-    unsigned short int size;
-public:
-    KVC();
-    ~KVC();
+    std::vector<std::pair<keyt, valuet>> map;
 
-    KVE<keyt, valuet>& operator[](const keyt&);
+    typename std::vector<std::pair<keyt, valuet>>::iterator findKey(const keyt& sKey);
+public:
+    KVC() = default;
+    KVC(const KVC<keyt, valuet>& other);
+    ~KVC() = default;
+
+    valuet& operator[](const keyt& sKey);
 };
 
 
@@ -22,21 +24,27 @@ public:
 
 
 template<typename keyt, typename valuet>
-KVC<keyt, valuet>::KVC()
+typename std::vector<std::pair<keyt, valuet>>::iterator KVC<keyt, valuet>::findKey(const keyt& sKey)
 {
-    size = 16;
-    list = reinterpret_cast<void**>(malloc(size << 3));
+    typename std::vector<std::pair<keyt, valuet>>::iterator bIter = map.begin();
+    typename std::vector<std::pair<keyt, valuet>>::iterator eIter = map.end();
+    while ((bIter != eIter) && (bIter->first != sKey))
+        ++bIter;
+    return bIter;
 }
 
 template<typename keyt, typename valuet>
-KVC<keyt, valuet>::~KVC()
-{
- 
-}
+KVC<keyt, valuet>::KVC(const KVC<keyt, valuet>& other): map(other.map){}
 
 template<typename keyt, typename valuet>
-KVE<keyt, valuet>& KVC<keyt, valuet>::operator[](const keyt& sKey)
+valuet& KVC<keyt, valuet>::operator[](const keyt& sKey)
 {
-    unsigned int i;
-    //while(list[i] && )
+    typename std::vector<std::pair<keyt, valuet>>::iterator iter = findKey(sKey);
+    if (iter == map.end())
+    {
+        map.insert(iter, std::pair<keyt, valuet>(sKey, valuet()));
+        iter = map.end();
+        --iter;
+    }
+    return iter->second;
 }
