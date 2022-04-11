@@ -26,11 +26,11 @@ public:
 template<typename keyt, typename valuet>
 typename std::vector<std::pair<keyt, valuet>>::iterator KVC<keyt, valuet>::findKey(const keyt& sKey)
 {
-    typename std::vector<std::pair<keyt, valuet>>::iterator bIter = map.begin();
+    typename std::vector<std::pair<keyt, valuet>>::iterator iter = map.begin();
     typename std::vector<std::pair<keyt, valuet>>::iterator eIter = map.end();
-    while ((bIter != eIter) && (bIter->first != sKey))
-        ++bIter;
-    return bIter;
+    while ((iter != eIter) && (iter->first != sKey))
+        ++iter;
+    return iter;
 }
 
 template<typename keyt, typename valuet>

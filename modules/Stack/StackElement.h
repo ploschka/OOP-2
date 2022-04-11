@@ -14,7 +14,7 @@ private:
     friend class Stack<T>;
 
     template<typename TT>
-    friend std::ostream& operator<<(std::ostream& os, const Stack<TT>& stack);
+    friend std::ostream& operator<<(std::ostream& out, const Stack<TT>& stack);
 };
 
 
@@ -22,5 +22,5 @@ private:
 
 
 
-template<typename T>
-StackElement<T>::StackElement(const T& data, const StackElement* ptr): data(data), next(ptr){}
+template<typename TT>
+StackElement<TT>::StackElement(const TT& data, const StackElement* ptr): data(data), next(ptr){}

@@ -16,7 +16,7 @@ public:
     T pop();
 
     template<typename TT>
-    friend std::ostream& operator<<(std::ostream& os, const Stack<TT>& stack);
+    friend std::ostream& operator<<(std::ostream& out, const Stack<TT>& stack);
 };
 
 
@@ -46,21 +46,21 @@ void Stack<T>::push(const T& data)
 template<typename T>
 T Stack<T>::pop()
 {
-    T ret(head->data);
+    T res(head->data);
     const StackElement<T>* victim = head;
     head = head->next;
     delete victim;
-    return ret;
+    return res;
 }
 
-template<typename T>
-std::ostream& operator<<(std::ostream& os, const Stack<T>& stack)
+template<typename TT>
+std::ostream& operator<<(std::ostream& out, const Stack<TT>& stack)
 {
-    const StackElement<T>* current = stack.head;
+    const StackElement<TT>* current = stack.head;
     while (current)
     {
-        os << current->data << ' ';
+        out << current->data << ' ';
         current = current->next;
     }
-    return os;
+    return out;
 }
