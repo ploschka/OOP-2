@@ -73,38 +73,58 @@ BigInteger BigInteger::operator+(const BigInteger& other) const
     result.negative = this->negative;
     result.number = '0';
 
-    std::string::const_reverse_iterator rIter = number.crbegin();
-    std::string::const_reverse_iterator orIter = other.number.crbegin();
+    std::string::const_reverse_iterator rIter;
+    std::string::const_reverse_iterator erIter;
 
-    std::string::const_reverse_iterator erIter = number.crend();
-    std::string::const_reverse_iterator oerIter = other.number.crend();
-
-    while(rIter != erIter && orIter != oerIter)
+    if(this->number.size() > other.number.size())
     {
-        buffer = (*rIter + *orIter + result.number[0]) - (2 * '0');
-        if(buffer > '9')
-        {
-            result.number[0] = buffer - 10;
-            result.number.insert(0, 1, '1');
-        }
-        else
-        {
-            result.number[0] = buffer;
-            result.number.insert(0, 1, '0');
-        }
-        rIter++;
-        orIter++;
-    }
-    if(rIter == erIter)
-    {
-        result.number.insert(0, other.number.substr(0, oerIter - orIter));
+        //result.number.reserve(this->number.size() + 1);
+        result.number.append(this->number);
+        rIter = other.number.crbegin();
+        erIter = other.number.crend();
     }
     else
     {
-        result.number.insert(0, this->number.substr(0, erIter - rIter));
+        //result.number.reserve(other.number.size() + 1);
+        result.number.append(other.number);
+        rIter = this->number.crbegin();
+        erIter = this->number.crend();        
     }
 
-    result.shrink();
+    std::string::reverse_iterator rrIter = result.number.rbegin();
+    std::string::reverse_iterator rerIter = result.number.rend();
+
+    while(rIter != erIter)
+    {
+        buffer = (*rIter + *rrIter) - '0';
+        if(buffer > '9')
+        {
+            std::string::reverse_iterator tmpIter = rrIter;
+            bool isIncremented = true;
+            *tmpIter = buffer - 10;
+            tmpIter++;
+            while (isIncremented)
+            {
+                if (*tmpIter > '8')
+                {
+                    *tmpIter = '0';
+                }
+                else
+                {
+                    (*tmpIter)++;
+                    isIncremented = false;
+                }
+                tmpIter++;
+            }
+        }
+        else
+        {
+            *rrIter = buffer;
+        }
+        rIter++;
+        rrIter++;
+    }
+    if (result.number[0] == '0') result.number.erase(result.number.begin());
     return result;
 }
 
