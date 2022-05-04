@@ -13,6 +13,8 @@ private:
 
     void mirror();
 
+    BigInteger abs() const;
+
 public:
     BigInteger() = default;
     BigInteger(const std::string& aNumber);

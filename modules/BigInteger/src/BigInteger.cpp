@@ -26,6 +26,13 @@ void BigInteger::mirror()
     this->shrink();
 }
 
+BigInteger BigInteger::abs() const
+{
+    BigInteger result(*this);
+    result.negative = false;
+    return result;
+}
+
 BigInteger::BigInteger(const std::string& aNumber)
 {
     if(aNumber.empty())
@@ -62,11 +69,11 @@ BigInteger BigInteger::operator+(const BigInteger& other) const
 {
     if(this->negative < other.negative)
     {
-        return (*this - other);
+        return ((*this).abs() - other.abs());
     }
     else if(other.negative < this->negative)
     {
-        return (other - *this);
+        return (other.abs() - (*this).abs());
     }
     unsigned char buffer;
     BigInteger result;
@@ -130,7 +137,14 @@ BigInteger BigInteger::operator+(const BigInteger& other) const
 
 BigInteger BigInteger::operator-(const BigInteger& other) const
 {
-
+    if(this->negative < other.negative)
+    {
+        return (*this - other);
+    }
+    else if(other.negative < this->negative)
+    {
+        return (other - *this);
+    }    
 }
 
 BigInteger BigInteger::operator*(const BigInteger& other) const
