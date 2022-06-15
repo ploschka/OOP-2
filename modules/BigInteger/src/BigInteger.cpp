@@ -33,7 +33,7 @@ BigInteger BigInteger::abs() const
     return result;
 }
 
-BigInteger BigInteger::add(const BigInteger& other)
+BigInteger BigInteger::add(const BigInteger& other) const
 {
     unsigned char buffer;
     BigInteger result;
@@ -93,12 +93,12 @@ BigInteger BigInteger::add(const BigInteger& other)
     return result;
 }
 
-BigInteger BigInteger::sub(const BigInteger& other)
+BigInteger BigInteger::sub(const BigInteger& other) const
 {
 
 }
 
-BigInteger BigInteger::mul(const BigInteger& other)
+BigInteger BigInteger::mul(const BigInteger& other) const
 {
 
 }
@@ -143,7 +143,7 @@ BigInteger::BigInteger(const BigInteger& other)
 
 BigInteger BigInteger::operator-() const
 {
-    BigInteger result(this);
+    BigInteger result(*this);
     result.negative = this->negative ? false : true;
     return result;
 }
@@ -156,7 +156,7 @@ BigInteger BigInteger::operator+(const BigInteger& other) const
     }
     else if(this->negative > other.negative)
     {
-        return other.sub(this->abs();
+        return other.sub(this->abs());
     }
     return this->add(other);    
 }

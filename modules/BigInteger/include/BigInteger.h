@@ -15,9 +15,9 @@ private:
 
     BigInteger abs() const;
 
-    BigInteger add(const BigInteger& other);
-    BigInteger sub(const BigInteger& other);
-    BigInteger mul(const BigInteger& other);
+    BigInteger add(const BigInteger& other) const;
+    BigInteger sub(const BigInteger& other) const;
+    BigInteger mul(const BigInteger& other) const;
 
 public:
     BigInteger() = default;
