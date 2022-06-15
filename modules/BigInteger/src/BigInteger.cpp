@@ -33,48 +33,8 @@ BigInteger BigInteger::abs() const
     return result;
 }
 
-BigInteger::BigInteger(const std::string& aNumber)
+BigInteger BigInteger::add(const BigInteger& other)
 {
-    if(aNumber.empty())
-        throw std::invalid_argument("Empty string");
-    
-    std::string::const_iterator iter = aNumber.cbegin();
-    std::string::const_iterator eIter = aNumber.cend();
-
-    if(aNumber[0] == '-')
-    {
-        negative = true;
-        iter++;
-    }
-    for(;iter != eIter; iter++)
-    {
-        if((*iter < '0') || (*iter > '9'))
-            throw std::invalid_argument("Argument is not a number");
-        number.push_back(*iter);
-    }
-    shrink();
-}
-
-BigInteger::BigInteger(const int aNumber)
-{
-    number = std::to_string(aNumber);
-    if(number[0] == '-')
-    {
-        negative = true;
-        number.erase(0, 1);
-    }
-}
-
-BigInteger BigInteger::operator+(const BigInteger& other) const
-{
-    if(this->negative < other.negative)
-    {
-        return ((*this).abs() - other.abs());
-    }
-    else if(other.negative < this->negative)
-    {
-        return (other.abs() - (*this).abs());
-    }
     unsigned char buffer;
     BigInteger result;
     result.negative = this->negative;
@@ -85,14 +45,12 @@ BigInteger BigInteger::operator+(const BigInteger& other) const
 
     if(this->number.size() > other.number.size())
     {
-        //result.number.reserve(this->number.size() + 1);
         result.number.append(this->number);
         rIter = other.number.crbegin();
         erIter = other.number.crend();
     }
     else
     {
-        //result.number.reserve(other.number.size() + 1);
         result.number.append(other.number);
         rIter = this->number.crbegin();
         erIter = this->number.crend();        
@@ -135,15 +93,83 @@ BigInteger BigInteger::operator+(const BigInteger& other) const
     return result;
 }
 
+BigInteger BigInteger::sub(const BigInteger& other)
+{
+
+}
+
+BigInteger BigInteger::mul(const BigInteger& other)
+{
+
+}
+
+BigInteger::BigInteger(const std::string& aNumber)
+{
+    if(aNumber.empty())
+        throw std::invalid_argument("Empty string");
+    
+    std::string::const_iterator iter = aNumber.cbegin();
+    std::string::const_iterator eIter = aNumber.cend();
+
+    if(aNumber[0] == '-')
+    {
+        negative = true;
+        iter++;
+    }
+    for(;iter != eIter; iter++)
+    {
+        if((*iter < '0') || (*iter > '9'))
+            throw std::invalid_argument("Argument is not a number");
+        number.push_back(*iter);
+    }
+    shrink();
+}
+
+BigInteger::BigInteger(const int aNumber)
+{
+    number = std::to_string(aNumber);
+    if(aNumber < 0)
+    {
+        negative = true;
+        number.erase(0, 1);
+    }
+}
+
+BigInteger::BigInteger(const BigInteger& other)
+{
+    this->number = other.number;
+    this->negative = other.negative;
+}
+
+BigInteger BigInteger::operator-() const
+{
+    BigInteger result(this);
+    result.negative = this->negative ? false : true;
+    return result;
+}
+
+BigInteger BigInteger::operator+(const BigInteger& other) const
+{
+    if(this->negative < other.negative)
+    {
+        return this->sub(other.abs());
+    }
+    else if(this->negative > other.negative)
+    {
+        return other.sub(this->abs();
+    }
+    return this->add(other);    
+}
+
 BigInteger BigInteger::operator-(const BigInteger& other) const
 {
     if(this->negative < other.negative)
     {
-        return (*this - other);
+        return this->add(other);
     }
-    else if(other.negative < this->negative)
+    else if(this->negative > other.negative)
     {
-        return (other - *this);
+        return other.sub(*this);
     }    
 }
 
@@ -183,50 +209,10 @@ bool BigInteger::operator==(const BigInteger& other) const
 
 }
 
-BigInteger BigInteger::operator+(const int& other) const
-{
-
-}
-
-BigInteger BigInteger::operator-(const int& other) const
-{
-
-}
-
-BigInteger BigInteger::operator*(const int& other) const
-{
-
-}
-
 void BigInteger::operator=(const int& other)
 {
     this->number = std::to_string(other);
     this->negative = (other < 0);
-}
-
-bool BigInteger::operator<(const int& other) const
-{
-    
-}
-
-bool BigInteger::operator<=(const int& other) const
-{
-
-}
-
-bool BigInteger::operator>(const int& other) const
-{
-
-}
-
-bool BigInteger::operator>=(const int& other) const
-{
-
-}
-
-bool BigInteger::operator==(const int& other) const
-{
-    
 }
 
 std::ostream& operator<<(std::ostream& out, const BigInteger& bigInt)
