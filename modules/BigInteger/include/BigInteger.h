@@ -10,7 +10,6 @@ private:
     bool negative = false;
 
     void shrink();
-
     void mirror();
 
 
@@ -31,13 +30,14 @@ public:
     BigInteger operator+(const BigInteger& other) const;
     BigInteger operator-(const BigInteger& other) const;
     BigInteger operator*(const BigInteger& other) const;
-    void operator=(const BigInteger& other);
+    
     bool operator<(const BigInteger& other) const;
     bool operator<=(const BigInteger& other) const;
     bool operator>(const BigInteger& other) const;
     bool operator>=(const BigInteger& other) const;
     bool operator==(const BigInteger& other) const;
 
+    void operator=(const BigInteger& other);
     void operator=(const int& other);
 
     friend std::ostream& operator<<(std::ostream& out, const BigInteger& bigInt);

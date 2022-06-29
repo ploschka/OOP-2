@@ -1,32 +1,6 @@
 #include "BigInteger.h"
 #include <algorithm>
 
-void BigInteger::shrink()
-{
-    std::string::iterator iter = number.begin();
-    std::string::iterator from = iter;
-    std::string::iterator eIter = (number.end() - 1);
-    while((iter != eIter) && (*iter == '0'))
-        iter++;
-    number.erase(from, iter);
-    if(number[0] == '0')
-        negative = false;
-}
-
-void BigInteger::mirror()
-{
-    std::string::iterator bIter = this->number.begin();
-    std::string::iterator eIter = this->number.end() - 1;
-
-    while (bIter < eIter)
-    {
-        std::swap(*bIter, *eIter);
-        bIter++;
-        eIter--;
-    }
-    this->shrink();
-}
-
 BigInteger BigInteger::add(const BigInteger& other) const
 {
     unsigned char buffer;
@@ -138,44 +112,6 @@ BigInteger BigInteger::mul(const BigInteger& other) const
 
 }
 
-BigInteger::BigInteger(const std::string& aNumber)
-{
-    if(aNumber.empty())
-        throw std::invalid_argument("Empty string");
-    
-    std::string::const_iterator iter = aNumber.cbegin();
-    std::string::const_iterator eIter = aNumber.cend();
-
-    if(aNumber[0] == '-')
-    {
-        negative = true;
-        iter++;
-    }
-    for(;iter != eIter; iter++)
-    {
-        if((*iter < '0') || (*iter > '9'))
-            throw std::invalid_argument("Argument is not a number");
-        number.push_back(*iter);
-    }
-    shrink();
-}
-
-BigInteger::BigInteger(const int aNumber)
-{
-    number = std::to_string(aNumber);
-    if(aNumber < 0)
-    {
-        negative = true;
-        number.erase(0, 1);
-    }
-}
-
-BigInteger::BigInteger(const BigInteger& other)
-{
-    this->number = other.number;
-    this->negative = other.negative;
-}
-
 BigInteger BigInteger::abs() const
 {
     BigInteger result(*this);
@@ -233,69 +169,4 @@ BigInteger BigInteger::operator*(const BigInteger& other) const
     {
         return this->abs().mul(other.abs());
     }
-}
-
-void BigInteger::operator=(const BigInteger& other)
-{
-    this->number = other.number;
-    this->negative = other.negative;
-}
-
-bool BigInteger::operator<(const BigInteger& other) const
-{
-    if(this->negative ^ other.negative)
-    {
-        return this->negative;
-    }
-    else if(this->number.size() != this->number.size())
-    {
-        return this->number.size() < this->number.size();
-    }
-    else
-    {
-        auto thisIter = this->number.cbegin();
-        for(auto i: other.number)
-        {
-            if(*thisIter != i)
-            {
-                return *thisIter < i;
-            }
-            thisIter++;            
-        }
-    }
-    return false;
-}
-
-bool BigInteger::operator<=(const BigInteger& other) const
-{
-    return !(*this > other);
-}
-
-bool BigInteger::operator>(const BigInteger& other) const
-{
-    return other < *this;
-}
-
-bool BigInteger::operator>=(const BigInteger& other) const
-{
-    return !(*this < other);
-}
-
-bool BigInteger::operator==(const BigInteger& other) const
-{
-    return (*this <= other) && (*this>=other);
-}
-
-void BigInteger::operator=(const int& other)
-{
-    this->number = std::to_string(other);
-    this->negative = (other < 0);
-}
-
-std::ostream& operator<<(std::ostream& out, const BigInteger& bigInt)
-{
-    if(bigInt.negative)
-        out << '-';
-    out << bigInt.number;
-    return out;
 }
