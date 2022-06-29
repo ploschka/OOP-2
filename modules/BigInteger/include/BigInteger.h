@@ -13,7 +13,6 @@ private:
 
     void mirror();
 
-    BigInteger abs() const;
 
     BigInteger add(const BigInteger& other) const;
     BigInteger sub(const BigInteger& other) const;
@@ -26,7 +25,7 @@ public:
     BigInteger(const BigInteger& other);
     ~BigInteger() = default;
 
-
+    BigInteger abs() const;
     BigInteger operator-() const;
 
     BigInteger operator+(const BigInteger& other) const;
