@@ -19,7 +19,7 @@ public:
     ILogger* createLogger();
 };
 
-class CombinedLoggerDecoratorFactory: public ILoggerFactory
+class CombinedLoggerFactory: public ILoggerFactory
 {
 public:
     ILogger* createLogger();

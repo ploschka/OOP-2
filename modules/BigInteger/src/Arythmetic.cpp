@@ -141,8 +141,10 @@ BigInteger BigInteger::mul(const BigInteger& other) const
             buff += (*upperi - '0') * (*loweri - '0');
             *resulti += buff % 10;
             buff /= 10;
-            result.number.insert(resulti, '0');
-            //resulti--;
+            if(resulti - 1 == resulte)
+                result.number.insert(resulti, '0');
+            else
+                resulti--;
         }
         *resulti += buff;
         resultc++;
@@ -156,10 +158,14 @@ BigInteger BigInteger::mul(const BigInteger& other) const
                 result.number.insert(resulti, '0');
                 resulti++;
             }
-            *(resulti - 1) = *resulti - ':';
-            *resulti -= ':';
+            while(*resulti > '9')
+            {
+                *(resulti - 1) += 1;
+                *resulti -= 10;
+            }
         }
     }
+    return result;
 }
 
 BigInteger BigInteger::abs() const

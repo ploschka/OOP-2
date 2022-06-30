@@ -3,9 +3,12 @@
 #include "Stack.h"
 #include "BigInteger.h"
 #include "CSVParser.h"
+#include <fstream>
+#include "LoggerFactory.h"
 
 int main()
 {
+    std::ofstream file("ggg.txt");
     KVC<char, int> mapa;
     mapa['a'] = 5;
     std::cout << mapa['a'] << std::endl;
@@ -30,7 +33,40 @@ int main()
     std::cout << staka << std::endl;
     std::cout << "===================================\n" << "===================================\n";
 
-    BigInteger biga("-492104");
-    BigInteger bigb("-740430");
-    std::cout << (biga - bigb) << std::endl;
+    BigInteger biga("492157438");
+    BigInteger bigb("7420505034");
+    file << (biga * bigb) << "\n\n";
+    CSVParser parser;
+    std::string hhhhhhhhhhhhhhhhhhhh = "fff.txt";
+    parsed_strings gg = parser.parse(hhhhhhhhhhhhhhhhhhhh);
+    for(auto i: gg)
+    {
+        for(auto j: i)
+        {
+            file << j << "; ";
+        }
+        file << "\n";
+    }
+    file.close();
+
+    ILoggerFactory* fac1 = new FileLoggerFactory();
+    ILoggerFactory* fac2 = new ConsoleLoggerFactory();
+    ILoggerFactory* fac3 = new CombinedLoggerFactory();
+
+    ILogger* logger;
+
+    logger = fac1->createLogger();
+    logger->error("Я пёрнул");
+    logger->warning("Я пёрнул");
+    logger->info("Я пёрнул");
+
+    logger = fac2->createLogger();
+    logger->error("Я пёрнул");
+    logger->warning("Я пёрнул");
+    logger->info("Я пёрнул");
+
+    logger = fac3->createLogger();
+    logger->error("Я пёрнул");
+    logger->warning("Я пёрнул");
+    logger->info("Я пёрнул");
 }

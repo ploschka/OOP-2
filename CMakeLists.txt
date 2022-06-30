@@ -10,4 +10,4 @@ add_subdirectory(tasks)
 
 add_executable(debug debug.cpp)
 
-target_link_libraries(debug KeyValueContainer Stack BigInteger Logger CSVParser)
+target_link_libraries(debug KeyValueContainer Stack BigInteger Logger CSVParser Logger)

@@ -1,35 +1,18 @@
 #include "Logger.h"
 #define DEFAULT_LOG_NAME "Logs.txt"
+#include "LoggerFactory.h"
 
-class ILoggerFactory
+ILogger* ConsoleLoggerFactory::createLogger()
 {
-public:
-    virtual ILogger* createLogger() = 0;
-};
+    return (new ConsoleLogger());
+}
 
-class ConsoleLoggerFactory: public ILoggerFactory
+ILogger* FileLoggerFactory::createLogger()
 {
-public:
-    ILogger* createLogger()
-    {
-        return (new ConsoleLogger());
-    }
-};
+    return (new FileLogger(DEFAULT_LOG_NAME));
+}
 
-class FileLoggerFactory: public ILoggerFactory
+ILogger* CombinedLoggerFactory::createLogger()
 {
-public:
-    ILogger* createLogger()
-    {
-        return (new FileLogger(DEFAULT_LOG_NAME));
-    }
-};
-
-class CombinedLoggerDecoratorFactory: public ILoggerFactory
-{
-public:
-    ILogger* createLogger()
-    {
-        return new FileLoggerDecorator(new ConsoleLogger(), DEFAULT_LOG_NAME);
-    }
-};
+    return new FileLoggerDecorator(new ConsoleLogger(), DEFAULT_LOG_NAME);
+}

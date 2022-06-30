@@ -1,152 +1,119 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "Logger.h"
 
-class ILogger
+void ConsoleLogger::log(const std::string& str)
 {
-public:
-    virtual void info(const std::string& str) = 0;
-    virtual void warning(const std::string& str) = 0;
-    virtual void error(const std::string& str) = 0;
-};
-
-class ConsoleLogger: public ILogger
+    std::cout << str << std::endl;
+}
+void ConsoleLogger::info(const std::string& str)
 {
-private:
-    void log(const std::string& str)
-    {
-        std::cout << str << std::endl;
-    }
-public:
-    void info(const std::string& str)
-    {
-        log("[INFO] "+str);
-    }
-    void warning(const std::string& str)
-    {
-        log("[WARNING] "+str);
-    }
-    void error(const std::string& str)
-    {
-        log("[ERROR] "+str);
-    }
-};
-
-class FileLogger: public ILogger
+    log("[INFO] "+str);
+}
+void ConsoleLogger::warning(const std::string& str)
 {
-private:
-    std::ofstream logfile;
-    void log(const std::string& str)
-    {
-        logfile << str << std::endl;
-    }
-public:
-    FileLogger(const std::string& filename): logfile(filename, std::ios_base::app)
-    {
-
-    }
-    ~FileLogger()
-    {
-        logfile.close();
-    }
-    void info(const std::string& str)
-    {
-        log("[INFO] "+str);
-    }
-    void warning(const std::string& str)
-    {
-        log("[WARNING] "+str);
-    }
-    void error(const std::string& str)
-    {
-        log("[ERROR] "+str);
-    }
-};
-
-class BaseLoggerDecorator: public ILogger
+    log("[WARNING] "+str);
+}
+void ConsoleLogger::error(const std::string& str)
 {
-protected:
-    ILogger* wrappedLogger;
-private:
-    void log(const std::string& str);
-public:
-    BaseLoggerDecorator(ILogger* logger): wrappedLogger(logger)
-    {
+    log("[ERROR] "+str);
+}
 
-    }
-    void info(const std::string& str)
-    {
-        wrappedLogger->info(str);
-    }
-    void warning(const std::string& str)
-    {
-        wrappedLogger->warning(str);
-    }
-    void error(const std::string& str)
-    {
-        wrappedLogger->error(str);
-    }
-};
-
-class ConsoleLoggerDecorator: public BaseLoggerDecorator
+void FileLogger::log(const std::string& str)
 {
-private:
-    void log(const std::string& str)
-    {
-        std::cout << str << std::endl;
-    }
-public:
-    ConsoleLoggerDecorator(ILogger* logger):BaseLoggerDecorator(logger)
-    {
-
-    }
-    void info(const std::string& str)
-    {
-        wrappedLogger->info(str);
-        this->log("[INFO] "+str);
-    }
-    void warning(const std::string& str)
-    {
-        wrappedLogger->warning(str);
-        this->log("[WARNING] "+str);
-    }
-    void error(const std::string& str)
-    {
-        wrappedLogger->error(str);
-        this->log("[ERROR] "+str);
-    }
-};
-
-class FileLoggerDecorator: public BaseLoggerDecorator
+    logfile << str << std::endl;
+}
+FileLogger::FileLogger(const std::string& filename): logfile(filename, std::ios_base::app)
 {
-private:
-    std::ofstream logfile;
-    void log(const std::string& str)
-    {
-        logfile << str << std::endl;
-    }
-public:
-    FileLoggerDecorator(ILogger* logger, const std::string& filename): BaseLoggerDecorator(logger), logfile(filename, std::ios_base::app)
-    {
 
-    }
-    ~FileLoggerDecorator()
-    {
-        logfile.close();
-    }
-    void info(const std::string& str)
-    {
-        wrappedLogger->info(str);
-        this->log("[INFO] "+str);
-    }
-    void warning(const std::string& str)
-    {
-        wrappedLogger->warning(str);
-        this->log("[WARNING] "+str);
-    }
-    void error(const std::string& str)
-    {
-        wrappedLogger->error(str);
-        this->log("[ERROR] "+str);
-    }
-};
+}
+FileLogger::~FileLogger()
+{
+    logfile.close();
+}
+void FileLogger::info(const std::string& str)
+{
+    log("[INFO] "+str);
+}
+void FileLogger::warning(const std::string& str)
+{
+    log("[WARNING] "+str);
+}
+void FileLogger::error(const std::string& str)
+{
+    log("[ERROR] "+str);
+}
+
+void BaseLoggerDecorator::log(const std::string& str)
+{
+
+}
+BaseLoggerDecorator::BaseLoggerDecorator(ILogger* logger): wrappedLogger(logger)
+{
+
+}
+void BaseLoggerDecorator::info(const std::string& str)
+{
+    wrappedLogger->info(str);
+}
+void BaseLoggerDecorator::warning(const std::string& str)
+{
+    wrappedLogger->warning(str);
+}
+void BaseLoggerDecorator::error(const std::string& str)
+{
+    wrappedLogger->error(str);
+}
+
+void ConsoleLoggerDecorator::log(const std::string& str)
+{
+    std::cout << str << std::endl;
+}
+ConsoleLoggerDecorator::ConsoleLoggerDecorator(ILogger* logger):BaseLoggerDecorator(logger)
+{
+
+}
+void ConsoleLoggerDecorator::info(const std::string& str)
+{
+    wrappedLogger->info(str);
+    this->log("[INFO] "+str);
+}
+void ConsoleLoggerDecorator::warning(const std::string& str)
+{
+    wrappedLogger->warning(str);
+    this->log("[WARNING] "+str);
+}
+void ConsoleLoggerDecorator::error(const std::string& str)
+{
+    wrappedLogger->error(str);
+    this->log("[ERROR] "+str);
+}
+
+void FileLoggerDecorator::log(const std::string& str)
+{
+    logfile << str << std::endl;
+}
+FileLoggerDecorator::FileLoggerDecorator(ILogger* logger, const std::string& filename): BaseLoggerDecorator(logger), logfile(filename, std::ios_base::app)
+{
+
+}
+FileLoggerDecorator::~FileLoggerDecorator()
+{
+    logfile.close();
+}
+void FileLoggerDecorator::info(const std::string& str)
+{
+    wrappedLogger->info(str);
+    this->log("[INFO] "+str);
+}
+void FileLoggerDecorator::warning(const std::string& str)
+{
+    wrappedLogger->warning(str);
+    this->log("[WARNING] "+str);
+}
+void FileLoggerDecorator::error(const std::string& str)
+{
+    wrappedLogger->error(str);
+    this->log("[ERROR] "+str);
+}
