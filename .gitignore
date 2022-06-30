@@ -2,3 +2,5 @@ build
 .vscode
 exe
 bin
+*.txt
+!CMakeLists.txt
