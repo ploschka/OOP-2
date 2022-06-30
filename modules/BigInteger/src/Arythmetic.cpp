@@ -165,6 +165,7 @@ BigInteger BigInteger::mul(const BigInteger& other) const
             }
         }
     }
+    result.shrink();
     return result;
 }
 

@@ -12,6 +12,7 @@ private:
 public:
     Stack() = default;
     ~Stack();
+    bool is_empty();
     void push(const T& data);
     T pop();
 
@@ -34,6 +35,12 @@ Stack<T>::~Stack()
         head = head->next;
         delete victim;
     }
+}
+
+template<typename T>
+bool Stack<T>::is_empty()
+{
+    return (!head);
 }
 
 template<typename T>

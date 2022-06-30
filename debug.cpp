@@ -33,9 +33,10 @@ int main()
     std::cout << staka << std::endl;
     std::cout << "===================================\n" << "===================================\n";
 
-    BigInteger biga("492157438");
-    BigInteger bigb("7420505034");
-    file << (biga * bigb) << "\n\n";
+    BigInteger biga("5");
+    BigInteger bigb("5");
+    BigInteger bigc("10");
+    file << ((biga * bigc) + bigb) << "\n\n";
     CSVParser parser;
     std::string hhhhhhhhhhhhhhhhhhhh = "fff.txt";
     parsed_strings gg = parser.parse(hhhhhhhhhhhhhhhhhhhh);

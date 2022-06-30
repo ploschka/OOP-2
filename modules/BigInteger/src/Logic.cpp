@@ -6,9 +6,9 @@ bool BigInteger::operator<(const BigInteger& other) const
     {
         return this->negative;
     }
-    else if(this->number.size() != this->number.size())
+    else if(this->number.size() != other.number.size())
     {
-        return this->number.size() < this->number.size();
+        return this->number.size() < other.number.size();
     }
     else
     {
