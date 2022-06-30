@@ -8,33 +8,40 @@
 
 int main()
 {
+    FileLoggerFactory logfac;
+    ILogger* logger = logfac.createLogger();
+
     uint64_t startingNumber;
     std::cout << "Enter the starting number: ";
     std::cin >> startingNumber;
 
+    if (std::cin.fail())
+    {
+        logger->error("Invalid starting number");
+        exit(1);        
+    }
+    logger->info("Successfully acquired starting number");
+
     CalcStrategyFactory<BigInteger> stratfactory;
     CalcMachine<BigInteger> machine(startingNumber);
     CSVParser parser;
-
-    FileLoggerFactory logfac;
-    ILogger* logger = logfac.createLogger();
 
     Stack<std::pair<std::string, BigInteger>> stack;
 
     machine.addCommand("ADD", stratfactory.createAddStrategy());
     machine.addCommand("SUB", stratfactory.createSubStrategy());
     machine.addCommand("MUL", stratfactory.createMulStrategy());
-    logger->info("Successfully added strategies into calulating machine");
 
     parsed_strings entry;
     try
     {
         entry = parser.parse("machine_entry.csv");
     }
-    catch(std::exception error)
+    catch(std::runtime_error error)
     {
+        logger->error("File parsing error");
         logger->error(error.what());
-        exit(1);
+        exit(2);
     }
     logger->info("Successfully parsed entry file");
 
@@ -45,10 +52,11 @@ int main()
             stack.push(std::make_pair(i[0], BigInteger(i[1])));
         }
     }
-    catch(std::exception error)
+    catch(std::logic_error error)
     {
+        logger->error("Stack filling error");
         logger->error(error.what());
-        exit(1);
+        exit(3);
     }
     logger->info("Successfully filled stack");
     
@@ -59,6 +67,7 @@ int main()
     }
     
     std::cout << "Result: " << machine.getBuffer() << std::endl;
+    logger->info("Program finished successfully");
 }
 
 #undef mylog

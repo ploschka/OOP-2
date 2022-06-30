@@ -70,4 +70,7 @@ int main()
     logger->error("Я пёрнул");
     logger->warning("Я пёрнул");
     logger->info("Я пёрнул");
+
+    parsed_strings bb = parser.parse("hhh.csv");
+    std::cout << std::endl;
 }
