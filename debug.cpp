@@ -29,8 +29,8 @@ int main()
     std::cout << staka << std::endl;
     std::cout << "===================================\n" << "===================================\n";
 
-    BigInteger biga("492104");
-    BigInteger bigb("740430");
-    std::cout << (biga + bigb) << std::endl;
+    BigInteger biga("-492104");
+    BigInteger bigb("-740430");
+    std::cout << (biga - bigb) << std::endl;
     //6912
 }
