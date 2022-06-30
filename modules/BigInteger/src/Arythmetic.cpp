@@ -102,14 +102,64 @@ BigInteger BigInteger::sub(const BigInteger& other) const
         resIter++;
     };
     std::for_each(beginer, ender, functor);
-    result.shrink();
     result.negative = makeNeg;
+    result.shrink();
     return result;
 }
 
 BigInteger BigInteger::mul(const BigInteger& other) const
 {
+    BigInteger result;
+    std::string upper;
+    std::string lower;
+    if (this->number.size() > other.number.size())
+    {
+        upper = this->number;
+        lower = other.number;
+    }
+    else
+    {
+        upper = other.number;        
+        lower = this->number;
+    }
 
+    result.number.reserve(upper.size() + lower.size());
+    result.number.push_back('0');
+
+    auto uppere = upper.crend();
+    auto lowere = lower.crend();
+    auto resulte = result.number.begin() - 1;
+
+    size_t resultc = 0;
+
+    for(auto loweri = lower.crbegin(); loweri != lowere; loweri++)
+    {
+        auto resulti = result.number.end() - 1 - resultc;
+        uint8_t buff = 0;
+        for(auto upperi = upper.crbegin(); upperi != uppere; upperi++)
+        {
+            buff += (*upperi - '0') * (*loweri - '0');
+            *resulti += buff % 10;
+            buff /= 10;
+            result.number.insert(resulti, '0');
+            //resulti--;
+        }
+        *resulti += buff;
+        resultc++;
+    }
+    for(auto resulti = result.number.end() - 1; resulti != resulte; resulti--)
+    {
+        if(*resulti > '9')
+        {
+            if (resulti - 1 == resulte)
+            {
+                result.number.insert(resulti, '0');
+                resulti++;
+            }
+            *(resulti - 1) = *resulti - ':';
+            *resulti -= ':';
+        }
+    }
 }
 
 BigInteger BigInteger::abs() const

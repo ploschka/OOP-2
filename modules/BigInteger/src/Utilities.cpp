@@ -10,6 +10,7 @@ void BigInteger::shrink()
     number.erase(from, iter);
     if(number[0] == '0')
         negative = false;
+    this->number.shrink_to_fit();
 }
 
 void BigInteger::mirror()
