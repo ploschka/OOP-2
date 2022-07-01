@@ -1,6 +1,6 @@
-set(DATABASE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(USER_DATABASE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-add_library(DataBase SHARED src/DataBase.cpp)
-target_include_directories(DataBase PUBLIC ${DATABASE_INCLUDE_DIR})
+add_library(UserDataBase SHARED src/UserDataBase.cpp)
+target_include_directories(UserDataBase PUBLIC ${USER_DATABASE_INCLUDE_DIR})
 
-target_link_libraries(DataBase StrelovParser)
+target_link_libraries(UserDataBase Parser)
