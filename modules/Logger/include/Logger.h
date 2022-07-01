@@ -13,8 +13,10 @@ public:
 class ConsoleLogger: public ILogger
 {
 private:
-    void log(const std::string& str);
+    std::string prefix;
+    void log(const std::string& str1, const std::string& str2);
 public:
+    ConsoleLogger(const std::string& prefix);
     void info(const std::string& str);
     void warning(const std::string& str);
     void error(const std::string& str);
@@ -23,10 +25,11 @@ public:
 class FileLogger: public ILogger
 {
 private:
+    std::string prefix;
     std::ofstream logfile;
-    void log(const std::string& str);
+    void log(const std::string& str1, const std::string& str2);
 public:
-    FileLogger(const std::string& filename);
+    FileLogger(const std::string& prefix, const std::string& filename);
     ~FileLogger();
     void info(const std::string& str);
     void warning(const std::string& str);
@@ -37,10 +40,11 @@ class BaseLoggerDecorator: public ILogger
 {
 protected:
     ILogger* wrappedLogger;
+    std::string prefix;
 private:
-    void log(const std::string& str);
+    void log(const std::string& str1, const std::string& str2);
 public:
-    BaseLoggerDecorator(ILogger* logger);
+    BaseLoggerDecorator(const std::string& prefix, ILogger* logger);
     void info(const std::string& str);
     void warning(const std::string& str);
     void error(const std::string& str);
@@ -49,9 +53,9 @@ public:
 class ConsoleLoggerDecorator: public BaseLoggerDecorator
 {
 private:
-    void log(const std::string& str);
+    void log(const std::string& str1, const std::string& str2);
 public:
-    ConsoleLoggerDecorator(ILogger* logger);
+    ConsoleLoggerDecorator(const std::string& prefix, ILogger* logger);
     void info(const std::string& str);
     void warning(const std::string& str);
     void error(const std::string& str);
@@ -61,9 +65,9 @@ class FileLoggerDecorator: public BaseLoggerDecorator
 {
 private:
     std::ofstream logfile;
-    void log(const std::string& str);
+    void log(const std::string& str1, const std::string& str2);
 public:
-    FileLoggerDecorator(ILogger* logger, const std::string& filename);
+    FileLoggerDecorator(const std::string& prefix, ILogger* logger, const std::string& filename);
     ~FileLoggerDecorator();
     void info(const std::string& str);
     void warning(const std::string& str);

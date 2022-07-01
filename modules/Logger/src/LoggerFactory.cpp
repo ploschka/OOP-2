@@ -2,17 +2,17 @@
 #define DEFAULT_LOG_NAME "Logs.txt"
 #include "LoggerFactory.h"
 
-ILogger* ConsoleLoggerFactory::createLogger()
+ILogger* ConsoleLoggerFactory::createLogger(const std::string& prefix)
 {
-    return (new ConsoleLogger());
+    return (new ConsoleLogger(prefix));
 }
 
-ILogger* FileLoggerFactory::createLogger()
+ILogger* FileLoggerFactory::createLogger(const std::string& prefix)
 {
-    return (new FileLogger(DEFAULT_LOG_NAME));
+    return (new FileLogger(prefix, DEFAULT_LOG_NAME));
 }
 
-ILogger* CombinedLoggerFactory::createLogger()
+ILogger* CombinedLoggerFactory::createLogger(const std::string& prefix)
 {
-    return new FileLoggerDecorator(new ConsoleLogger(), DEFAULT_LOG_NAME);
+    return new FileLoggerDecorator(prefix, new ConsoleLogger(prefix), DEFAULT_LOG_NAME);
 }

@@ -56,17 +56,17 @@ int main()
 
     ILogger* logger;
 
-    logger = fac1->createLogger();
+    logger = fac1->createLogger("[DEBUG1]");
     logger->error("Я пёрнул");
     logger->warning("Я пёрнул");
     logger->info("Я пёрнул");
 
-    logger = fac2->createLogger();
+    logger = fac2->createLogger("[DEBUG2]");
     logger->error("Я пёрнул");
     logger->warning("Я пёрнул");
     logger->info("Я пёрнул");
 
-    logger = fac3->createLogger();
+    logger = fac3->createLogger("[DEBUG3]");
     logger->error("Я пёрнул");
     logger->warning("Я пёрнул");
     logger->info("Я пёрнул");

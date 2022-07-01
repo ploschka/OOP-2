@@ -9,7 +9,7 @@
 int main()
 {
     FileLoggerFactory logfac;
-    ILogger* logger = logfac.createLogger();
+    ILogger* logger = logfac.createLogger("[CALC MACHINE]");
 
     uint64_t startingNumber;
     std::cout << "Enter the starting number: ";
