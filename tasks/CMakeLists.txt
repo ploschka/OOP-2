@@ -1,1 +1,3 @@
 add_subdirectory(CalculatingMachine)
+
+add_subdirectory(RegisterAndLogin)

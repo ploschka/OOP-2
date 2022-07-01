@@ -1,6 +1,6 @@
 #include <vector>
 #include <fstream>
-#include "CSVParser.h"
+#include "Parser.h"
 
 parsed_strings CSVParser::parse(const std::string& filename) const
 {
