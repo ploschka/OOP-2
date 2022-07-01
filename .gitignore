@@ -7,3 +7,4 @@ bin
 *.csv
 !machine_entry.csv
 !users.csv
+a.out
