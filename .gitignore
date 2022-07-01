@@ -6,3 +6,4 @@ bin
 !CMakeLists.txt
 *.csv
 !machine_entry.csv
+!users.csv
