@@ -51,12 +51,8 @@ BigInteger::BigInteger(const std::string& aNumber)
 
 BigInteger::BigInteger(const int aNumber)
 {
-    number = std::to_string(aNumber);
-    if(aNumber < 0)
-    {
-        negative = true;
-        number.erase(0, 1);
-    }
+    number = std::to_string(std::abs(aNumber));
+    negative = aNumber < 0;
 }
 
 BigInteger::BigInteger(const BigInteger& other)
@@ -73,8 +69,8 @@ void BigInteger::operator=(const BigInteger& other)
 
 void BigInteger::operator=(const int& other)
 {
-    this->number = std::to_string(other);
-    this->negative = (other < 0);
+    number = std::to_string(std::abs(other));
+    negative = other < 0;
 }
 
 std::ostream& operator<<(std::ostream& out, const BigInteger& bigInt)

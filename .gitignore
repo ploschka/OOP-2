@@ -8,3 +8,5 @@ bin
 !machine_entry.csv
 !users.csv
 a.out
+!test1.csv
+!test2.csv

@@ -36,6 +36,7 @@ public:
     bool operator>(const BigInteger& other) const;
     bool operator>=(const BigInteger& other) const;
     bool operator==(const BigInteger& other) const;
+    bool operator!=(const BigInteger& other) const;
 
     void operator=(const BigInteger& other);
     void operator=(const int& other);

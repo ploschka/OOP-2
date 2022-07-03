@@ -1,20 +1,20 @@
 #pragma once
 #include <string>
 #include "KVC.h"
-#include "CalcStrategies.h"
-#include "CalcStrategyFactory.h"
+#include "CalcCommands.h"
+#include "CalcCommandFactory.h"
 
 template<typename T>
 class CalcMachine
 {
 private:
-    KVC<std::string, ICalcStrategy<T>*> strats;
+    KVC<std::string, ICalcCommand<T>*> strats;
     T buffer;
 public:
     CalcMachine(T number): buffer(number) {}
-    void addCommand(std::string command, ICalcStrategy<T>* strategy)
+    void addCommand(std::string command, ICalcCommand<T>* Command)
     {
-        strats[command] = strategy;
+        strats[command] = Command;
     }
     void doOperation(std::string operation, T number)
     {

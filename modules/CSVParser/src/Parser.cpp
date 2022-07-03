@@ -17,38 +17,50 @@ parsed_strings CSVParser::parse(const std::string& filename) const
         std::getline(file, str, '\n');
         if (!file.eof())
         {
+            std::string semiresult;
+            bool quote = false;
             auto end = str.end();
+
             for(auto iter = str.begin(); iter <= end; iter++)
             {
-                if(*iter == ',' || iter == end)
+                if(quote)
                 {
-                    ps.push_back(str.substr(0, iter - str.begin()));
-                    if(iter < end)
-                        iter += 2;
-                    str.erase(str.begin(), iter);
-                    if(iter < end)
+                    if(iter == end)
                     {
-                        iter = str.begin()-1;
-                        end = str.end();                        
+                        throw std::runtime_error("No ending quote");
+                    }
+                    if(*iter == '\"')
+                    {
+                        quote = false;
+                        if(*(iter + 1) != ',' && (iter + 1) < end)
+                        {
+                            throw std::runtime_error("No coma after ending quote");                        
+                        }
+                        ps.push_back(semiresult);
+                        iter += 2;
+                        semiresult.clear();
+                    }
+                    else
+                    {
+                        semiresult.push_back(*iter);
                     }
                 }
-                else if(*iter == '\"')
+                else
                 {
-                    do
+                    if(*iter == ',')
                     {
-                        iter++;
+                        ps.push_back(semiresult);
+                        iter += 1;
+                        semiresult.clear();
                     }
-                    while(*iter != '\"' && iter != end);
-                    if(iter == end)
-                        throw std::runtime_error("No ending quote");
-                    if(*(iter + 1) != ',' && (iter + 1) == end)
-                        throw std::runtime_error("No coma after ending quote");
-                    
-                    ps.push_back(str.substr(1, iter - str.begin() - 1));
-                    iter += 3;
-                    str.erase(str.begin(), iter);
-                    iter = str.begin()-1;
-                    end = str.end();
+                    else if(*iter == '\"')
+                    {
+                        quote = true;
+                    }
+                    else
+                    {
+                        semiresult.push_back(*iter);
+                    }
                 }
             }
             result.push_back(ps);

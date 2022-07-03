@@ -179,7 +179,14 @@ BigInteger BigInteger::abs() const
 BigInteger BigInteger::operator-() const
 {
     BigInteger result(*this);
-    result.negative = this->negative ? false : true;
+    if(this->number == "0")
+    {
+        result.negative = false;
+    }
+    else
+    {
+        result.negative = this->negative ? false : true;
+    }
     return result;
 }
 

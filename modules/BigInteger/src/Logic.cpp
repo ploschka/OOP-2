@@ -17,7 +17,7 @@ bool BigInteger::operator<(const BigInteger& other) const
         {
             if(*thisIter != i)
             {
-                return *thisIter < i;
+                return (this->negative)? *thisIter > i: *thisIter < i;
             }
             thisIter++;            
         }
@@ -43,4 +43,9 @@ bool BigInteger::operator>=(const BigInteger& other) const
 bool BigInteger::operator==(const BigInteger& other) const
 {
     return (*this <= other) && (*this>=other);
+}
+
+bool BigInteger::operator!=(const BigInteger& other) const
+{
+    return !(*this == other);
 }

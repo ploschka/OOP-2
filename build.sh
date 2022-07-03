@@ -1,5 +1,3 @@
 cmake -S . -B build/ && cd build && make
 mkdir ../exe
-ln -sfr debug -t ../exe
-cd tasks
-ln -sfr -t ../../exe CalculatingMachine/machine RegisterAndLogin/login RegisterAndLogin/register
+ln -sfr -t ../exe tasks/CalculatingMachine/machine tasks/RegisterAndLogin/login tasks/RegisterAndLogin/register tests/test

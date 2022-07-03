@@ -1,5 +1,5 @@
-add_executable(test tests.cpp)
+add_executable(test BigIntegerTests.cpp KVCTests.cpp ParserTests.cpp StackTests.cpp)
 
 add_subdirectory(googletest)
 
-target_link_libraries(test gtest gtest_main)
+target_link_libraries(test gtest gtest_main BigInteger Parser KeyValueContainer Stack)

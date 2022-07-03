@@ -1,4 +1,6 @@
 #pragma once
+
+#include <iostream>
 template <typename T> class Stack;
 
 template <typename T>
