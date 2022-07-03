@@ -1,13 +1,13 @@
 #pragma once
 template<typename T>
-class ICalcCommand
+class ICalcStrategy
 {
 public:
     virtual T execute(const T& a, const T& b) = 0;
 };
 
 template<typename T>
-class AddCommand: public ICalcCommand<T>
+class AddStrategy: public ICalcStrategy<T>
 {
 public:
     T execute(const T& a, const T& b)
@@ -17,7 +17,7 @@ public:
 };
 
 template<typename T>
-class SubCommand: public ICalcCommand<T>
+class SubStrategy: public ICalcStrategy<T>
 {
 public:
     T execute(const T& a, const T& b)
@@ -27,7 +27,7 @@ public:
 };
 
 template<typename T>
-class MulCommand: public ICalcCommand<T>
+class MulStrategy: public ICalcStrategy<T>
 {
 public:
     T execute(const T& a, const T& b)

@@ -21,7 +21,7 @@ parsed_strings CSVParser::parse(const std::string& filename) const
             bool quote = false;
             auto end = str.end();
 
-            for(auto iter = str.begin(); iter <= end; iter++)
+            for(auto iter = str.begin(); iter < end; iter++)
             {
                 if(quote)
                 {
@@ -63,6 +63,8 @@ parsed_strings CSVParser::parse(const std::string& filename) const
                     }
                 }
             }
+            if(!semiresult.empty())
+                ps.push_back(semiresult);
             result.push_back(ps);
         }
     }

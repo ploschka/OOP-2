@@ -22,15 +22,15 @@ int main()
     }
     logger->info("Successfully acquired starting number");
 
-    CalcCommandFactory<BigInteger> commFactory;
+    CalcStrategyFactory<BigInteger> stratFactory;
     CalcMachine<BigInteger> machine(startingNumber);
     CSVParser parser;
 
     Stack<std::pair<std::string, BigInteger>> stack;
 
-    machine.addCommand("ADD", commFactory.createAddCommand());
-    machine.addCommand("SUB", commFactory.createSubCommand());
-    machine.addCommand("MUL", commFactory.createMulCommand());
+    machine.addStrategy("ADD", stratFactory.createAddStrategy());
+    machine.addStrategy("SUB", stratFactory.createSubStrategy());
+    machine.addStrategy("MUL", stratFactory.createMulStrategy());
 
     parsed_strings entry;
     try
