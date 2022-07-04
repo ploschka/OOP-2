@@ -15,11 +15,11 @@ int main()
     ILogger* logger = fac->createLogger("[REGISTER]");
 
     std::string login;
-    std::cout << "Enter your login: ";
-    std::cin >> login;
     bool correct = false;
     while(!correct)
     {
+        std::cout << "Enter your login: ";
+        std::cin >> login;
         try
         {
             if(!db.contains(login))
